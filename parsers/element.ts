@@ -4,7 +4,7 @@ import * as turf from '@turf/helpers'
 import * as ak from 'id-area-keys'
 import * as R from 'ramda'
 
-interface Data {
+type Data = {
   type: string
   lat?: number
   lon?: number
@@ -12,7 +12,7 @@ interface Data {
   tags?: any
 }
 
-interface Node {
+type Node = {
   lat: number
   lon: number
 }
@@ -41,14 +41,14 @@ export function ElementParser(json: any) {
     if (data.nodes.length === 0) {
       return
     }
-    var geometry = data.nodes
+    const geometry = data.nodes
       .filter(function (node) {
         return Object.keys(node).includes('lat') && Object.keys(node).includes('lon')
       })
       .map(function (node) {
         return [node.lon, node.lat].map(Number)
       })
-    var properties = R.omit(['nodes'], data)
+    const properties = R.omit(['nodes'], data)
 
     if (data.tags && ak.isArea(data.tags) && isClosedWay(data.nodes)) {
       return R.omit(['bbox'], turf.polygon([geometry], properties))
@@ -60,7 +60,7 @@ export function ElementParser(json: any) {
   function createRelation(data) {
     if ('members' in data) {
       data.relations = data.members.map(createFeature).filter(R.complement(R.isNil)) // filter out nulls
-      var feature = createBboxPolygon(createBbox(turf.featureCollection(data.relations)))
+      const feature = createBboxPolygon(createBbox(turf.featureCollection(data.relations)))
       feature.properties = R.omit(['members'], data)
       return R.omit(['bbox'], feature)
     }
@@ -105,8 +105,8 @@ export function ElementParser(json: any) {
 function isClosedWay(nodes) {
   // Each LinearRing of a Polygon must have 4 or more Positions
   if (nodes.length > 3) {
-    var firstNode = nodes[0]
-    var lastNode = nodes[nodes.length - 1]
+    const firstNode = nodes[0]
+    const lastNode = nodes[nodes.length - 1]
     return (
       Object.keys(firstNode).includes('lat') &&
       Object.keys(firstNode).includes('lon') &&
