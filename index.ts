@@ -1,13 +1,11 @@
 import { featureCollection } from '@turf/helpers'
-import * as R from 'ramda'
 import { ElementParser } from './parsers/element'
 
-const changesetParser = R.pipe(
-  R.prop(['elements']),
-  R.map(ElementParser),
-  R.flatten,
-  featureCollection,
-)
-
+export const changesetParser = (input: any) => {
+  const { elements } = input
+  const parsedElements = elements.map((element) => ElementParser(element))
+  const flatElements = parsedElements.flatten()
+  return featureCollection(flatElements)
+}
 ;(changesetParser as any).elementParser = ElementParser
 export default changesetParser
