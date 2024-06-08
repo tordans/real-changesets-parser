@@ -48,7 +48,7 @@ export function ElementParser(json: any) {
       .map(function (node) {
         return [node.lon, node.lat].map(Number)
       })
-    const properties = R.omit(['nodes'], data)
+    const { nodes: omit, ...properties } = data
 
     if (data.tags && ak.isArea(data.tags) && isClosedWay(data.nodes)) {
       return R.omit(['bbox'], turf.polygon([geometry], properties))
@@ -60,9 +60,12 @@ export function ElementParser(json: any) {
   function createRelation(data) {
     if ('members' in data) {
       data.relations = data.members.map(createFeature).filter(R.complement(R.isNil)) // filter out nulls
-      const feature = createBboxPolygon(createBbox(turf.featureCollection(data.relations)))
-      feature.properties = R.omit(['members'], data)
-      return R.omit(['bbox'], feature)
+      const { member: omit, ...properties } = data
+      const feature = createBboxPolygon(createBbox(turf.featureCollection(data.relations)), {
+        properties,
+      })
+      delete feature.bbox
+      return feature
     }
     return null
   }
