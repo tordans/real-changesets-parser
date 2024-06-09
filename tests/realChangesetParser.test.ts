@@ -32,6 +32,7 @@ const inputElements = [
   relationModifyInput,
 ]
 const expectedOutput: ReturnType<typeof featureCollection> = featureCollection(
+  // @ts-expect-error "Type '"Polygon"' is not assignable to type '"LineString"'." – No idea why this is complaining
   [
     wayCreateOutput,
     wayDeleteOutput,
