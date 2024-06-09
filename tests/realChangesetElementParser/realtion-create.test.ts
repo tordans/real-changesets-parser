@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
 import { realChangesetElementParser } from '../../index.js'
-import { relationCreateInput } from '../data/realtion-create-input'
-import { relationCreateOutput } from '../data/realtion-create-output'
+import { relationCreateInput } from '../data-elements/realtion-create-input'
+import { relationCreateOutput } from '../data-elements/realtion-create-output'
 
 test('handle relation create case', () => {
   const actualOutput = realChangesetElementParser(relationCreateInput)
