@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { realChangesetElementParser } from '../../parsers/realChangesetElementParser'
+import { realChangesetElementParser } from '../../index.js'
 import { nodeDeleteInput } from '../data/node-delete-input'
 import { nodeDeleteOutput } from '../data/node-delete-output'
 

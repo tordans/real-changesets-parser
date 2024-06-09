@@ -1,5 +1,5 @@
 import { featureCollection } from '@turf/helpers'
-import { realChangesetElementParser } from './realChangesetElementParser'
+import { realChangesetElementParser } from '../index.js'
 
 export const realChangesetParser = (input: any) => {
   const { elements } = input

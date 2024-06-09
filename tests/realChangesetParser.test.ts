@@ -1,6 +1,6 @@
 import { featureCollection } from '@turf/helpers'
 import { expect, test } from 'vitest'
-import { realChangesetParser } from '../parsers/realChangesetParser'
+import { realChangesetParser } from '../index.js'
 import { nodeCreateInput } from './data/node-create-input'
 import { nodeCreateOutput } from './data/node-create-output'
 import { nodeDeleteInput } from './data/node-delete-input'

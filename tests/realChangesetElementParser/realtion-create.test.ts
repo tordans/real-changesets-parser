@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { realChangesetElementParser } from '../../parsers/realChangesetElementParser'
+import { realChangesetElementParser } from '../../index.js'
 import { relationCreateInput } from '../data/realtion-create-input'
 import { relationCreateOutput } from '../data/realtion-create-output'
 
