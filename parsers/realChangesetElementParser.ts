@@ -99,6 +99,12 @@ export function realChangesetElementParser(json: any) {
       break
   }
 
+  // Add `tagsCount` to feature properties
+  json.tagsCount = Object.keys(json?.tags || {}).length
+  if (json.old) {
+    json.old.tagsCount = Object.keys(json.old?.tags || {}).length
+  }
+
   return ('old' in json ? [R.omit(['old'], json), json.old] : [json]).map(createFeature)
 }
 

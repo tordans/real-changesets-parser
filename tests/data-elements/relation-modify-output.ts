@@ -12,6 +12,7 @@ export const relationModifyOutput: OutputType = [
       user: 'AlexLabrada',
       action: 'modify',
       type: 'relation',
+      tagsCount: 8,
       tags: {
         from: 'Guanabo',
         name: 'Ruta A40 Guanabo => Habana Vieja',
@@ -2016,6 +2017,7 @@ export const relationModifyOutput: OutputType = [
       user: 'frodrigo',
       action: 'modify',
       type: 'relation',
+      tagsCount: 8,
       tags: {
         from: 'Guanabo',
         name: 'Ruta A40 Guanabo => Habana Vieja',

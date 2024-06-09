@@ -16,6 +16,7 @@ export const nodeCreateOutput: OutputType = [
       user: 'xDSF-DFSx',
       action: 'create',
       type: 'node',
+      tagsCount: 0,
       tags: {},
       changeType: 'added',
     },

@@ -12,6 +12,7 @@ export const relationInRelationOutput: OutputType = [
       user: 'The Maarssen Mapper',
       action: 'modify',
       type: 'relation',
+      tagsCount: 11,
       tags: {
         admin_level: '6',
         boundary: 'administrative',
@@ -34035,6 +34036,7 @@ export const relationInRelationOutput: OutputType = [
       user: 'The Maarssen Mapper',
       action: 'modify',
       type: 'relation',
+      tagsCount: 11,
       tags: {
         admin_level: '6',
         boundary: 'administrative',

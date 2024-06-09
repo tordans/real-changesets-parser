@@ -24,6 +24,7 @@ export const relationCreateOutput: OutputType = [
       user: 'Garpul',
       action: 'create',
       type: 'relation',
+      tagsCount: 2,
       tags: {
         layer: '1',
         type: 'bridge',

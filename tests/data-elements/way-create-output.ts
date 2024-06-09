@@ -24,6 +24,7 @@ export const wayCreateOutput: OutputType = [
       user: 'Garpul',
       action: 'create',
       type: 'way',
+      tagsCount: 1,
       tags: {
         waterway: 'ditch',
       },

@@ -12,6 +12,7 @@ export const changesetWithUndefinedOutput = {
         user: 'Ahmet Mirza',
         action: 'modify',
         type: 'way',
+        tagsCount: 2,
         tags: { landuse: 'residential', residential: 'apartments' },
         changeType: 'modifiedNew',
       },
@@ -133,6 +134,7 @@ export const changesetWithUndefinedOutput = {
         user: 'Ahmet Mirza',
         action: 'modify',
         type: 'way',
+        tagsCount: 2,
         tags: { landuse: 'residential', residential: 'apartments' },
         changeType: 'modifiedOld',
       },
@@ -252,6 +254,7 @@ export const changesetWithUndefinedOutput = {
         user: 'Ahmet Mirza',
         action: 'create',
         type: 'way',
+        tagsCount: 6,
         tags: {
           amenity: 'parking',
           capacity: '2',

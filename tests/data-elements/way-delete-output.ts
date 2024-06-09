@@ -13,6 +13,7 @@ export const wayDeleteOutput: OutputType = [
       user: 'AlexLabrada',
       action: 'delete',
       type: 'way',
+      tagsCount: 0,
       tags: {},
       changeType: 'deletedNew',
     },
@@ -38,6 +39,7 @@ export const wayDeleteOutput: OutputType = [
       user: 'westner',
       action: 'delete',
       type: 'way',
+      tagsCount: 2,
       tags: {
         building: 'yes',
         source: 'Bing',

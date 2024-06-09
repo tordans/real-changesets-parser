@@ -26,6 +26,7 @@ export const wayModifyOutput: OutputType = [
       user: 'Adriansyah',
       action: 'modify',
       type: 'way',
+      tagsCount: 1,
       tags: {
         highway: 'unclassified',
       },
@@ -57,6 +58,7 @@ export const wayModifyOutput: OutputType = [
       user: 'Adriansyah',
       action: 'modify',
       type: 'way',
+      tagsCount: 1,
       tags: {
         highway: 'unclassified',
       },
