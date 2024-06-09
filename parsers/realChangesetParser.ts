@@ -5,5 +5,6 @@ export const realChangesetParser = (input: any) => {
   const { elements } = input
   const parsedElements = elements.map((element) => realChangesetElementParser(element))
   const flatElements = parsedElements.flat()
-  return featureCollection(flatElements)
+  const cleanElements = flatElements.filter(Boolean)
+  return featureCollection(cleanElements)
 }
