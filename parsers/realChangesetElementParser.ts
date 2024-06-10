@@ -17,7 +17,13 @@ type Node = {
   lon: number
 }
 
-export function realChangesetElementParser(json: any) {
+export function realChangesetElementParser(mutatingJson: any) {
+  const closedJson = structuredClone(mutatingJson)
+  return mutatingRealChangesetElementParser(closedJson)
+}
+
+// This method is not exported by the index.js. We only use it for `realChangesetParser` so we don't have to clone twice.
+export function mutatingRealChangesetElementParser(mutatingJson: any) {
   function createFeature(data: Data) {
     switch (data.type) {
       case 'node':
@@ -69,43 +75,45 @@ export function realChangesetElementParser(json: any) {
 
   // If the feature was deleted, copy its
   // geometry from the old feature
-  if (json.action === 'delete') {
-    switch (json.type) {
+  if (mutatingJson.action === 'delete') {
+    switch (mutatingJson.type) {
       case 'node':
-        json.lon = json.old.lon
-        json.lat = json.old.lat
+        mutatingJson.lon = mutatingJson.old.lon
+        mutatingJson.lat = mutatingJson.old.lat
         break
       case 'way':
-        json.nodes = json.old.nodes
+        mutatingJson.nodes = mutatingJson.old.nodes
         break
       case 'relation':
-        json.members = json.old.members
+        mutatingJson.members = mutatingJson.old.members
         break
     }
   }
 
   // Set change type
-  switch (json.action) {
+  switch (mutatingJson.action) {
     case 'create':
-      json.changeType = 'added'
+      mutatingJson.changeType = 'added'
       break
     case 'delete':
-      json.changeType = 'deletedNew'
-      json.old.changeType = 'deletedOld'
+      mutatingJson.changeType = 'deletedNew'
+      mutatingJson.old.changeType = 'deletedOld'
       break
     case 'modify':
-      json.changeType = 'modifiedNew'
-      json.old.changeType = 'modifiedOld'
+      mutatingJson.changeType = 'modifiedNew'
+      mutatingJson.old.changeType = 'modifiedOld'
       break
   }
 
   // Add `tagsCount` to feature properties
-  json.tagsCount = Object.keys(json?.tags || {}).length
-  if (json.old) {
-    json.old.tagsCount = Object.keys(json.old?.tags || {}).length
+  mutatingJson.tagsCount = Object.keys(mutatingJson?.tags || {}).length
+  if (mutatingJson.old) {
+    mutatingJson.old.tagsCount = Object.keys(mutatingJson.old?.tags || {}).length
   }
 
-  return ('old' in json ? [R.omit(['old'], json), json.old] : [json]).map(createFeature)
+  return (
+    'old' in mutatingJson ? [R.omit(['old'], mutatingJson), mutatingJson.old] : [mutatingJson]
+  ).map(createFeature)
 }
 
 function isClosedWay(nodes) {

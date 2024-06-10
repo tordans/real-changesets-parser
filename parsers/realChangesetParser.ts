@@ -1,9 +1,9 @@
 import { featureCollection } from '@turf/helpers'
-import { realChangesetElementParser } from '../index.js'
+import { mutatingRealChangesetElementParser } from './realChangesetElementParser.js'
 
 export const realChangesetParser = (input: any) => {
-  const { elements } = input
-  const parsedElements = elements.map((element) => realChangesetElementParser(element))
+  const elements = structuredClone(input.elements)
+  const parsedElements = elements.map((element) => mutatingRealChangesetElementParser(element))
   const flatElements = parsedElements.flat()
   const cleanElements = flatElements.filter(Boolean)
   return featureCollection(cleanElements)
