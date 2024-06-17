@@ -1,8 +1,8 @@
 import createBbox from '@turf/bbox'
 import createBboxPolygon from '@turf/bbox-polygon'
 import { featureCollection, lineString, point, polygon } from '@turf/helpers'
-import * as ak from 'id-area-keys'
 import * as R from 'ramda'
+import { isArea } from 'id-area-keys'
 
 type Data = {
   type: string
@@ -51,8 +51,8 @@ export function mutatingRealChangesetElementParser(mutatingJson: any) {
       })
     const properties = R.omit(['nodes'], data)
 
-    if (data.tags && ak.isArea(data.tags) && isClosedWay(data.nodes)) {
       return R.omit(['bbox'], polygon([geometry], properties))
+    if (data.tags && isArea(data.tags) && isClosedWay(data.nodes)) {
     } else {
       return R.omit(['bbox'], lineString(geometry, properties))
     }
