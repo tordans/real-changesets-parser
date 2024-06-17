@@ -1,8 +1,8 @@
 import createBbox from '@turf/bbox'
 import createBboxPolygon from '@turf/bbox-polygon'
 import { featureCollection, lineString, point, polygon } from '@turf/helpers'
-import * as R from 'ramda'
 import { isArea } from 'id-area-keys'
+import { complement, isNil, omit } from 'ramda'
 
 type Data = {
   type: string
@@ -33,7 +33,7 @@ export function mutatingRealChangesetElementParser(mutatingJson: any) {
   function createNode(data: Data) {
     if (data.lat !== undefined && data.lon !== undefined) {
       const geometry = [data.lon, data.lat].map(Number)
-      const properties = R.omit(['lon', 'lat'], data)
+      const properties = omit(['lon', 'lat'], data)
       return point(geometry, properties)
     }
   }
@@ -49,21 +49,21 @@ export function mutatingRealChangesetElementParser(mutatingJson: any) {
       .map(function (node) {
         return [node.lon, node.lat].map(Number)
       })
-    const properties = R.omit(['nodes'], data)
+    const properties = omit(['nodes'], data)
 
-      return R.omit(['bbox'], polygon([geometry], properties))
     if (data.tags && isArea(data.tags) && isClosedWay(data.nodes)) {
+      return omit(['bbox'], polygon([geometry], properties))
     } else {
-      return R.omit(['bbox'], lineString(geometry, properties))
+      return omit(['bbox'], lineString(geometry, properties))
     }
   }
 
   function createRelation(data) {
     if ('members' in data) {
-      data.relations = data.members.map(createFeature).filter(R.complement(R.isNil)) // filter out nulls
+      data.relations = data.members.map(createFeature).filter(complement(isNil)) // filter out nulls
       const feature = createBboxPolygon(createBbox(featureCollection(data.relations)))
-      feature.properties = R.omit(['members'], data)
-      return R.omit(['bbox'], feature)
+      feature.properties = omit(['members'], data)
+      return omit(['bbox'], feature)
     }
     return null
   }
@@ -107,7 +107,7 @@ export function mutatingRealChangesetElementParser(mutatingJson: any) {
   }
 
   return (
-    'old' in mutatingJson ? [R.omit(['old'], mutatingJson), mutatingJson.old] : [mutatingJson]
+    'old' in mutatingJson ? [omit(['old'], mutatingJson), mutatingJson.old] : [mutatingJson]
   ).map(createFeature)
 }
 
